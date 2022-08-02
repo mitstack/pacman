@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang='en'>
+   <head>
+      <meta charset="UTF-8">
+      <title>Pac-Man</title>
+      
+      <script>
+
+   // Define Pac-Man images to be used.      
+   const PacMan_Array_X = [
+    ['Pac-Man_Open_Right.png', 'Pac-Man_Closed_Right.png'],
+    ['Pac-Man_Open_Left.png', 'Pac-Man_Closed_Left.png']
+ ];
+ 
+ // Define variables.
+ let Time = 100;
+ 
+ 
+ let Page_Width = window.innerWidth;
+ let Position_X = 0;
+ let Velocity_X = 10;
+ var Direction_X = 0;
+ var Chomp_Option_X = 0;
+ 
+ // Determine if within range and if velocity needs to be changed.
+function Edge_Detection_X( Direction_X, Image_Width, Position_X) {
+
+if(Position_X + Image_Width >= Page_Width || Position_X < 0 ) {
+   Direction_X = !Direction_X;
+   Direction_X= Number(Direction_X);
+   
+}
+return Direction_X;
+}
+ 
+ // Define how to move Pac-Man.
+   function Move_PacMan_X() {
+   var PacMan = document.getElementById("Pac-Man");
+   Chomp_Option_X = (Chomp_Option_X + 1) % 2;
+    
+    Image_Width = PacMan.style.width;
+    Direction_X =  Edge_Detection_X(Direction_X, Image_Width, Position_X);
+    PacMan.src = PacMan_Array_X[Direction_X][Chomp_Option_X];
+
+    if(Direction_X){
+      Position_X = Position_X - Velocity_X;
+      PacMan.style.left = Position_X + 'px';
+    }
+
+    else {
+      Position_X = Position_X + Velocity_X;
+      PacMan.style.left = Position_X + 'px';
+    }
+    }
+
+    // Main function.
+      
+
+      // Move Pac-Man at set interval.
+
+    setInterval(Move_PacMan_X, 200);
+
+      </script>
+      <style>
+          body {
+         background-image: url("hero.jpg");
+     }
+      </style>
+      
+
+   </head>
+   <body>
+      
+      <h1>Pac-Man</h1>
+      <img id="Pac-Man" src="Pac-Man_Open_Right.png" width="100" height="100"  style="position: absolute"></img>
+   </body>
+</html>
